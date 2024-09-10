@@ -81,30 +81,77 @@ The analysis was carried out using the following steps in `Python`:
     ```
     The model was used to predict the revenue for the next eight quarters (Q1 2022 to Q4 2024). The predicted values are plotted against the actual training data for comparison.
 
-## **Results**
+## Results 
 
-1. **Quarterly Sales Visualization**:
-    - The visualized sales data show a strong upward trend in revenue over the years, with clear seasonal patterns (e.g., high sales in Q4 due to holiday shopping).
-    - Revenue dips significantly during the COVID-19 pandemic, but the company shows a sharp recovery afterward.
+### 1. Visualization of Quarterly Revenue
+The time series plot of Adidas' quarterly sales revenue clearly highlights the company's growth over time. Key observations:
+- **Seasonality**: Clear seasonal patterns with periodic peaks and troughs.
+- **Trend**: A strong upward trend in revenue, indicating overall business growth.
+  
+  **Key Observations**:
+  - The revenue steadily increases over time, with a notable dip around 2020, likely reflecting the impact of the COVID-19 pandemic.
+  - After the dip, the revenue rebounds significantly, showing that the company recovers relatively quickly from downturns.
 
-2. **Seasonal Decomposition**:
-    - **Trend**: A long-term positive growth trend is observed, with a dip during the pandemic.
-    - **Seasonality**: The data shows quarterly seasonal effects, with Q4 consistently being the strongest quarter.
-    - **Residual**: The residuals are close to zero for most periods, indicating the model captures the major trends and seasonal effects.
+### 2. Seasonal Decomposition
+Using multiplicative decomposition, the revenue data was broken down into three key components: trend, seasonality, and residual.
 
-3. **Autocorrelation and Partial Autocorrelation**:
-    - The ACF plot shows strong autocorrelation at lag 1, confirming the influence of previous quarter revenues on the current quarter.
-    - The PACF plot further supports the autoregressive relationship, showing significance at lag 1 and lag 4, indicating both short-term and seasonal dependencies.
+- **Trend Component**:
+  - Shows a long-term upward movement in revenue.
+  - The sharp drop in revenue around 2020 is highlighted, followed by a strong recovery.
+  
+- **Seasonality Component**:
+  - A repeating cycle where Q4 consistently shows higher revenue, likely due to holiday sales.
+  - Q1 typically shows a decline.
+  - The amplitude of seasonal effects remains consistent across the years.
 
-4. **SARIMAX Model**:
-    - The SARIMAX model achieved a good fit, capturing both the short-term AR(1) relationship and the seasonal AR and MA terms.
-    - The model's summary indicates that the **AR(1)** term is highly significant, with a coefficient of **0.7176**. The **MA(1)** term, while not as strongly significant, is still useful in capturing short-term noise in the data.
-    - The model has an **AIC of 1106.564** and **BIC of 1118.152**, suggesting a reasonable balance between model complexity and goodness-of-fit.
+- **Residual Component**:
+  - Residuals represent random noise in the data after removing the trend and seasonal effects.
+  - There are some spikes in the residuals during the 2020 dip, which the model does not fully capture.
 
-5. **Forecasting**:
-    - The predicted revenue for the next eight quarters shows continued growth, with revenue expected to reach **6105 million USD** by Q4 2024.
-    - Seasonal fluctuations are reflected in the forecast, showing expected increases in Q4 each year.
-    - The model struggled slightly with the sudden drop caused by the pandemic, but overall, it performs well in capturing both long-term trends and seasonal effects.
+### 3. Autocorrelation and Partial Autocorrelation Analysis
+
+- **Autocorrelation (ACF) Plot**:
+  - Significant autocorrelation at early lags, particularly at lag 1, meaning revenue from one quarter is highly correlated with the previous quarter.
+  - The presence of seasonal spikes at lag 4 and lag 8 suggests quarterly seasonality.
+
+- **Partial Autocorrelation (PACF) Plot**:
+  - Significant values at lag 1 and lag 4 confirm the autoregressive relationship in the data.
+  - The PACF findings suggest using an AR(1) model with seasonal components is appropriate.
+
+### 4. SARIMAX Model Results
+
+The SARIMAX model was applied to the data with the following parameters: ARIMA (1,1,1) and Seasonal ARIMA (1,1,1,12). The model incorporates both the trend and seasonal effects into the prediction.
+
+- **Model Summary**:
+  - **AR(1)**: Coefficient of 0.7176, statistically significant, indicating that past revenue has a strong influence on current revenue.
+  - **MA(1)**: Negative coefficient (-0.9981) suggests a short-term corrective effect, though borderline significant (p-value ~0.067).
+  - **Seasonal AR(1) and MA(1)**: Not statistically significant, but including them improves model performance.
+  - **Sigma2**: Indicates some uncertainty in the predictions.
+
+- **Model Performance**:
+  - **AIC**: 1106.564, a lower value indicates a better fit.
+  - **BIC**: 1118.152, indicating a balance between model complexity and fit.
+  - **Log Likelihood**: -548.282, indicating a reasonable fit to the data.
+
+### 5. Forecasting Future Sales
+
+The model predicts the next 8 quarters (2 years) of revenue, revealing continued growth.
+
+- **Predicted Growth**: Revenue is expected to rise, with consistent seasonal fluctuations.
+- **Seasonal Variation**: As expected, there are dips and spikes corresponding to seasonal patterns.
+- **Recovery**: Post-COVID revenue shows strong recovery, aligning with historical trends.
+
+- **Key Insights**:
+  - Revenue is forecasted to reach approximately **6,105 million USD by Q4 2024**, up from **5,514 million USD in Q4 2021**.
+  - The forecast indicates a consistent rise in revenue, with the lowest predicted value at **5,421 million USD in Q2 2023**.
+
+### 6. Residual Analysis
+
+The residuals were analyzed to ensure the model captures systematic patterns in the data.
+
+- **Key Findings**:
+  - Residuals are randomly distributed, indicating the model successfully accounts for trend and seasonality.
+  - Occasional spikes in the residuals during periods of sudden revenue changes, such as the COVID-19 pandemic dip, suggest the model struggles with unexpected events.
 
 ## **Conclusion**
 
