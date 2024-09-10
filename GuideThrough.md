@@ -108,4 +108,4 @@ The analysis was carried out using the following steps in `Python`:
 
 ## **Conclusion**
 
-The SARIMAX model successfully captured the key patterns in Adidas' quarterly revenue, providing useful predictions for future performance. The results suggest that Adidas' sales will continue to grow over the next two years, with notable seasonal variations. Future improvements could involve exploring other models like **LSTM** or **Prophet**, and experimenting with rolling window forecasting techniques to further enhance predictive accuracy.
+The SARIMAX model provides a robust fit for Adidas' quarterly sales revenue data, capturing both the long-term trend and seasonal fluctuations. The predictions suggest positive growth for Adidas over the next two years, with revenue expected to rise consistently despite seasonal dips. While the model struggles with sudden shocks (e.g., pandemic-related dips), it remains useful for strategic planning.
